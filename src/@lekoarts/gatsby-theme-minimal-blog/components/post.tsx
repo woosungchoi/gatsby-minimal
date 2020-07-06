@@ -5,6 +5,7 @@ import React from "react"
 import Layout from "./layout"
 import ItemTags from "./item-tags"
 import SEO from "./seo"
+import Utterances from "./utterance"
 
 type PostProps = {
   data: {
@@ -45,18 +46,22 @@ const Post = ({ data: { post } }: PostProps) => (
     <Heading variant="styles.h2">{post.title}</Heading>
     <p sx={{ color: `secondary`, mt: 3, a: { color: `secondary` }, fontSize: [1, 1, 2] }}>
       <time>{post.date}</time>
+    </p>
+    <p sx={{ mt: -3, mb: 0 }}>
       {post.tags && (
         <React.Fragment>
-          {` — `}
           <ItemTags tags={post.tags} />
         </React.Fragment>
       )}
-      {post.timeToRead && ` — `}
-      {post.timeToRead && <span>{post.timeToRead} min read</span>}
+    </p>
+    <p sx={{ mt: 1, mb: 0 }}>
+      {post.timeToRead && ``}
+      {post.timeToRead && <span>읽는 시간 : {post.timeToRead} 분 소요</span>}
     </p>
     <section sx={{ my: 5, ".gatsby-resp-image-wrapper": { my: [4, 4, 5], boxShadow: shadow.join(`, `) } }}>
       <MDXRenderer>{post.body}</MDXRenderer>
     </section>
+    <Utterances repo="woosungchoi/gatsby-minimal" />
   </Layout>
 )
 
