@@ -11,7 +11,7 @@ const HeaderExternalLinks = () => {
       {externalLinks && externalLinks.length > 0 && (
         <div sx={{ "a:not(:first-of-type)": { ml: 3 }, fontSize: [1, `18px`] }}>
           {externalLinks.map((link) => (
-            <TLink key={link.url} href={link.url}>
+            <TLink key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
               {link.name}
             </TLink>
           ))}

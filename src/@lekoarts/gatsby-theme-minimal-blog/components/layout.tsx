@@ -2,7 +2,6 @@
 import React from "react"
 import { Global } from "@emotion/core"
 import { Box, Container, jsx } from "theme-ui"
-//import "typeface-ibm-plex-sans"
 import "typeface-nanum-gothic"
 import SEO from "./seo"
 import Header from "./header"
