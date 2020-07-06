@@ -29,10 +29,11 @@ const Blog = ({ posts }: PostsProps) => {
   return (
     <Layout>
       <SEO title="Blog" />
+      <img src="blog-cover.jpg" width="100%" />
       <Flex sx={{ alignItems: `center`, justifyContent: `space-between`, flexFlow: `wrap` }}>
         <Heading variant="styles.h2">Blog</Heading>
         <TLink as={Link} sx={{ variant: `links.secondary` }} to={replaceSlashes(`/${basePath}/${tagsPath}`)}>
-          View all tags
+          모든 태그 보기
         </TLink>
       </Flex>
       <Listing posts={posts} sx={{ mt: [4, 5] }} />
