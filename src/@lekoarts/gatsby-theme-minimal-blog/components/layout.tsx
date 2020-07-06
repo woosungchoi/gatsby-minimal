@@ -25,6 +25,9 @@ const Layout = ({ children, className = `` }: LayoutProps) => (
         img: {
           borderStyle: `none`,
         },
+        body: {
+          fontFamily: `"Nanum Gothic",-apple-system, BlinkMacSystemFont, "Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"`,
+        },
         pre: {
           fontFamily: `monospace`,
           fontSize: `1em`,

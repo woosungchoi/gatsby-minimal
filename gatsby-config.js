@@ -15,7 +15,7 @@ module.exports = {
     // SEO에 들어가는 사이트 설정입니다.
     siteDescription: `Gatsby js로 만든 우성짱의 미니멀 블로그입니다. 정적사이트 생성기 Gatsby로 꾸미고 있습니다.`,
     // 사이트 언어를 설정합니다.
-    siteLanguage: `ko`,
+    siteLanguage: `KR`,
     // og:image에 쓰이며, 반드시 `static` 폴더에 있어야 합니다. 사이트 대표이미지라고 보시면 됩니다.
     siteImage: `/profile.png`,
     // 트위터 계정을 넣으면 됩니다. 없어도 될 것 같네요.
