@@ -12,8 +12,8 @@ const ColorModeToggle = ({ isDark, toggle }: Props) => (
   <button
     onClick={toggle}
     type="button"
-    aria-label={isDark ? `Activate Light Mode` : `Activate Dark Mode`}
-    title={isDark ? `Activate Light Mode` : `Activate Dark Mode`}
+    aria-label={isDark ? `밝은 테마로 바꾸기` : `다크 테마로 바꾸기`}
+    title={isDark ? `밝은 테마로 바꾸기` : `다크 테마로 바꾸기`}
     sx={{
       opacity: 0.65,
       position: `relative`,
