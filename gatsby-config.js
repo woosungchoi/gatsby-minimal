@@ -38,7 +38,7 @@ module.exports = {
             url: `https://www.wsgvet.com`,
           },
         ],
-        formatString: `YYYY.MM.DD`,
+        formatString: `YYYY년 MM월 DD일`,
       },
     },
     {
