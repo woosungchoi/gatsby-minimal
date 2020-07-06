@@ -35,6 +35,9 @@ const BlogListItem = ({ post, showTags = true }: BlogListItemProps) => (
         </React.Fragment>
       )}
     </p>
+    <p sx={{ fontSize: [1, 2, 2], mt: 1, color: `#666666cc`, }}>
+      {post.description ? post.description : post.excerpt}
+    </p>
   </Box>
 )
 
