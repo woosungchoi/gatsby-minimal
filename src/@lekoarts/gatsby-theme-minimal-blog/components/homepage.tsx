@@ -29,9 +29,6 @@ const Homepage = ({ posts }: PostsProps) => {
 
   return (
     <Layout>
-      <section sx={{ mb: [6, 6, 6], p: { fontSize: [1, 2, 3], mt: 2 } }}>
-        <Hero />
-      </section>
       <Title text="Latest Posts">
         <Link to={replaceSlashes(`/${basePath}/${blogPath}`)}>모든 글 보기</Link>
       </Title>

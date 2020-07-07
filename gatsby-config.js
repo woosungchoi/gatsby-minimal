@@ -35,6 +35,10 @@ module.exports = {
             title: `Tags`,
             slug: `/tags`,
           },
+          {
+            title: `About`,
+            slug: `/about`,
+          },
         ],
         formatString: `YYYY년 MM월 DD일`,
       },
