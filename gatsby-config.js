@@ -28,14 +28,12 @@ module.exports = {
       options: {
         navigation: [
           {
-            title: `블로그`,
+            title: `Blog`,
             slug: `/blog`,
           },
-        ],
-        externalLinks: [
           {
-            name: `Homepage`,
-            url: `https://www.wsgvet.com`,
+            title: `Tags`,
+            slug: `/tags`,
           },
         ],
         formatString: `YYYY년 MM월 DD일`,
