@@ -21,7 +21,16 @@ const Footer = () => {
       }}
     >
       <div>
-        &copy; {new Date().getFullYear()} by {siteTitle}. All rights reserved.
+        &copy; {new Date().getFullYear()} by 
+        {` `}
+        <Link aria-label="우성짱의 홈페이지 링크" 
+          href="https://www.wsgvet.com"
+          target="_blank"
+          rel="noopener noreferrer"          
+        >
+          {siteTitle}
+        </Link>
+        . All rights reserved.
       </div>
       <div>
         <Link
