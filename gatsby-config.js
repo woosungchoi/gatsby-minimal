@@ -41,6 +41,7 @@ module.exports = {
           },
         ],
         formatString: `YYYY년 MM월 DD일`,
+        feedTitle: `Woosung blog - sand.ga`,
       },
     },
     {

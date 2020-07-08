@@ -81,6 +81,11 @@ const code = {
       background: `#61dafb`,
       color: `black`,
     },
+    'pre[class~="language-nginx"]:before': {
+      content: `"nginx"`,
+      background: `#005a9c`,
+      color: `white`,
+    },
     'pre[class~="language-tsx"]:before': {
       content: `"tsx"`,
       background: `#61dafb`,
