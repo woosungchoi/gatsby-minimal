@@ -1,0 +1,190 @@
+---
+title: 코드가 들어있는 글 테스트입니다.
+date: 2020-07-08 19:08:10
+description: jsx와 nginx 규칙의 코드가 어떻게 표현되는지 확인해봅니다.
+tags:
+  - Theme
+  - Code
+slug: "/code-test-post"
+---
+
+### jsx 코드가 있는 글은 어떻게 표현이 될까요?
+
+코드 시작
+
+```jsx:title=src/@lekoarts/gatsby-theme-minimal-blog/components/blog.tsx {2-9,15}
+/** @jsx jsx */
+import { jsx, Heading, Link as TLink } from "theme-ui"
+import { Link } from "gatsby"
+import { Flex } from "@theme-ui/components"
+import Layout from "./layout"
+import Listing from "./listing"
+import useMinimalBlogConfig from "../hooks/use-minimal-blog-config"
+import replaceSlashes from "../utils/replaceSlashes"
+import SEO from "./seo"
+
+type PostsProps = {
+  posts: {
+    slug: string
+    title: string
+    date: string
+    excerpt: string
+    description: string
+    timeToRead?: number
+    tags?: {
+      name: string
+      slug: string
+    }[]
+  }[]
+}
+
+const Blog = ({ posts }: PostsProps) => {
+  const { tagsPath, basePath } = useMinimalBlogConfig()
+
+  return (
+    <Layout>
+      <SEO title="Blog" />
+      <Flex sx={{ alignItems: `center`, justifyContent: `space-between`, flexFlow: `wrap` }}>
+        <Heading mt={[-1, -1]} variant="styles.h2">Blog</Heading>
+      </Flex>
+      <Listing posts={posts} sx={{ mt: [4, 5] }} />
+    </Layout>
+  )
+}
+
+export default Blog
+```
+
+잘 표현이 되는 것 같나요?
+
+### Nginx도 표현하는지 봅니다.
+
+코드 시작
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name yoursitename.com www.yoursitename.com;
+    location / {
+        rewrite       ^/(.*)$ https://yoursitename.com/$1 permanent;
+		}
+} 
+
+server {
+listen 443 ssl http2;
+listen [::]:443 ssl http2;
+server_tokens off;
+client_max_body_size 100M;
+include snippets/wp-ssl.conf;
+server_name hubs.tk; #자신의 도메인주소로 바꾸세요.
+
+if ($host != 'hubs.tk' ) {
+	rewrite ^/(.*)$  https://yoursitename.com/$1 permanent;
+	}
+
+access_log /var/log/nginx/proxy-access.log;
+error_log /var/log/nginx/proxy-error.log;    
+
+set $skip_cache 0;
+
+# POST requests and urls with a query string should always go to PHP
+
+if ($request_method = POST) {
+    set $skip_cache 1;
+}
+
+#if ($query_string != "") {
+#    set $skip_cache 1;
+#}
+
+# Don't cache uris containing the following segments
+
+if ($request_uri ~* "/wp-admin/|/xmlrpc.php|wp-.*.php|^/feed/*|/tag/.*/feed/*|index.php|/.*sitemap.*\.(xml|xsl)") {
+    set $skip_cache 1;
+}
+
+# Don't use the cache for logged in users or recent commenters
+
+if ($http_cookie ~* "comment_author|wordpress_[a-f0-9]+|wp-postpass|wordpress_no_cache|wordpress_logged_in") {
+    set $skip_cache 1;
+}
+
+#if ($remote_addr ~* "12.34.56.78|12.34.56.79") { #캐시 생성을 차단하는 IP 설정입니다.
+#     set $skip_cache 1;
+#}
+
+location / {
+	# comment out proxy_redirect if get login redirect loop
+	#proxy_redirect off;
+	proxy_cache proxy-cache;
+	proxy_cache_bypass $skip_cache;
+	proxy_no_cache $skip_cache;
+	proxy_cache_valid 200 301 302 600m;
+	proxy_cache_use_stale error timeout updating invalid_header http_500 http_503;
+	proxy_cache_min_uses 1; # 해당 파일에 처음 접근하자마자 바로 캐시 생성
+	proxy_cache_lock on;
+	add_header X-Frame-Options SAMEORIGIN;
+	add_header X-Content-Type-Options nosniff;
+	add_header X-XSS-Protection "1; mode=block";     
+	add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+	add_header X-WP-Cache-Status $upstream_cache_status;
+
+	# pass requests to the origin backend 
+
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header X-Forwarded-Proto $scheme;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header Host $http_host;
+	proxy_pass http://127.0.0.1:81;
+	}
+
+location ~ /purge(/.*) {
+	proxy_cache_purge proxy-cache "$scheme$request_method$host$1";
+}
+}
+```
+
+Nginx코드는 아직 인식하지 못하는가봐요. 이상하네요
+
+위 코드는 오픈라이트웹서버의 리버스프록시를 Nginx에서 전송하는 것입니다. ㅎㅎ
+
+전체 내용이 궁금하시면
+
+<a href="https://www.wsgvet.com/bbs/board.php?bo_table=home&wr_id=610" target="_blank" rel="noopener noreferrer">오픈라이트스피드 웹서버 설치 및 Nginx 리버스 프록시 서버 설정하기 (1)</a>
+
+위 게시물을 참조하세요~!
+
+### js 파일도 테스트해봅니다.
+
+코드시작
+
+```js:title=src/@lekoarts/gatsby-theme-minimal-blog/gatsby-plugin-theme-ui/components.js {2-6,9}
+/* eslint react/prop-types: 0 */
+import React from "react"
+import { preToCodeBlock } from "mdx-utils"
+import { Text } from "@theme-ui/components"
+import Code from "../components/code"
+import Title from "../components/title"
+
+const components = {
+  Text: ({ children, ...props }) => <Text {...props}>{children}</Text>,
+  Title: ({ children, text, ...props }) => (
+    <Title text={text} {...props}>
+      {children}
+    </Title>
+  ),
+  pre: (preProps) => {
+    const props = preToCodeBlock(preProps)
+    // if there's a codeString and some props, we passed the test
+    if (props) {
+      return <Code {...props} />
+    }
+    // it's possible to have a pre without a code in it
+    return <pre {...preProps} />
+  },
+  wrapper: ({ children }) => <>{children}</>,
+}
+
+export default components
+```
