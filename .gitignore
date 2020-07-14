@@ -70,6 +70,7 @@ public
 
 package-lock.json
 
-# firebase files
+# firebase files and folder
 .firebaserc
 firebase.json
+.firebase
