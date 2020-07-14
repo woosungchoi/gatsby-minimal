@@ -69,3 +69,7 @@ public
 .DS_Store
 
 package-lock.json
+
+# firebase files
+.firebaserc
+firebase.json
