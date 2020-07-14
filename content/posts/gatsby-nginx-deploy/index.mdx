@@ -1,0 +1,257 @@
+---
+title: 정적사이트 생성기 Gatsby를 Nginx 웹서버로 직접 배포하기
+date: 2020-07-14 14:16:10
+description: 배포 서비스를 이용하지 않고, 개인 홈서버나 클라우드 인스턴스를 이용하여 Nginx 웹서버로 배포할 수도 있습니다.
+tags:
+  - gatsby
+  - nginx
+slug: "/deploying-the-static-site-generator-natsby-directly-to-the-nginx-web-server"
+banner: ./cover.png
+---
+
+![커버](./cover.png)
+
+원본 : https://www.wsgvet.com/bbs/board.php?bo_table=staticsite&wr_id=18
+
+---
+
+## 들어가며 
+
+정적사이트 생성기를 이용하면 DB 및 PHP가 필요없기 때문에 대부분 배포 서비스를 이용할 것입니다.
+
+특히 nextjs를 개발하고 있는 vercel을 이용하면, 서울 CDN을 무료 플랜에서도 쓸 수 있습니다.
+
+vercel의 경우 해당 지역의 사용자가 많으면 그 지역 CDN을 열어주는 편인데요.
+
+미국과 한국 모두 사용자가 많다면 둘다 열어줍니다.
+
+이와 같은 배포 서비스를 이용하지 않고, 개인 홈서버나 클라우드 인스턴스를 이용하여 직접 배포할 수도 있습니다.
+
+음.. 직접 배포하는 이유는 vercel을 제외한 배포 서비스에 우리나라 CDN이 거의 없기 때문에 
+
+우리나라 사용자들에게 최고의 접속환경을 보여드리고 싶기 때문입니다.
+
+---
+
+## 기본 준비사항
+
+로컬 컴퓨터에 정적사이트 생성기를 사용할 수 있는 준비가 되어있고,
+
+깃허브와 연동되었으며, 이미 정적사이트 생성기를 이용하여 파일을 만들었다는 가정하에 진행해봅니다.
+
+저의 경우 gatsby로 생성한 파일이 `/gatsby/gatsby-minimal`에 있습니다.
+
+로컬 컴퓨터에서 Nginx로 바로 배포하려면 그냥 Ngixn에서 `/gatsby/gatsby-minimal/public` 폴더를 root로 잡으면 끝입니다.
+
+상세한 Nginx 설정은 4번에서 알려드리겠습니다.
+
+---
+
+## 빌드 후 빌드된 파일만 깃허브에 업로드하기
+
+저는 오라클 클라우드에 있는 무료 인스턴스를 이용하여 배포할 것입니다.
+
+이제 빌드된 파일이 저장될 `/gatsby/gatsby-minimal-public` 폴더를 새로 생성하고, 해당 폴더를 새로운 깃허브 저장소와 연결할 것입니다.
+
+우선 로컬 컴퓨터에서 `/gatsby/gatsby-minimal-public`와 같은 폴더를 생성 후, 
+
+깃허브에 빌드된 파일이 저장될 개인용 저장소(레포)를 생성합니다.
+
+참고로 Private으로 생성하면 `git clone`이나 `git pull` 할때 아이디와 비번을 계속 넣어줘야되는 귀찮음이 있습니다.
+
+그리고 로컬 컴퓨터에서 gatsby 파일이 있는 폴더로 갑니다.
+
+```
+gatsby build
+```
+
+위 명령어로 빌드를 진행합니다.
+
+```
+cp -r public ../gatsby-minimal-public
+```
+
+위 명령어로 빌드로 생성된 public 폴더를 원하는 폴더로 복사합니다.
+
+```
+cd .. && cd gatsby-minimal-public/public
+```
+
+이제 위 명령어를 내려서 public 폴더로 갑니다.
+
+```
+git init
+git add -A
+git commit -m "initial commit"
+```
+
+위 명령어들을 내려, git을 초기화하고, 추가된 파일들을 커밋합니다.
+
+```
+git remote add origin https://github.com/자신의깃허브계정/개인용저장소
+```
+
+위와 같은 형식으로 빌드된 파일이 저장될 개인용 저장소(레포)와 연결합니다.
+
+```
+git push --set-upstream origin master
+```
+
+위 명령어로 파일을 업로드합니다.
+
+이렇게 하면 빌드된 파일만 원하는 저장소에 저장이 됩니다.
+
+나중에 로컬에서 작업 후 바로 배포하게 될 명령어를 한줄로 만들어보았습니다.
+
+```
+gatsby build && cp -r public ../gatsby-minimal-public && cd .. && cd gatsby-minimal-public/public && git add -A && git commit -m "public" && git push --set-upstream origin master && cd .. && cd .. && cd gatsby-minimal
+```
+
+위 명령어를 내리면 빌드하고, 빌드된 폴더를 복사 후 깃허브에 올리고, 원래 폴더로 돌아옵니다.
+
+이제 원하는 결과물을 깃허브에 올렸습니다. 
+
+---
+
+## 클라우드에서 다운 받고, Nginx와 연동하기
+
+클라우드에서 원하는 폴더로 가서 git clone을 합니다.
+
+```
+git clone https://github.com/자신의깃허브계정/개인용저장소
+```
+
+위와 같이 다운 받을 수 있습니다.
+
+저는 `/var/www/gatsby-minimal-public` 이 경로에 파일을 다운 받았습니다.
+
+본격적으로 Nginx 설정을 넣을 때 입니다.
+
+```
+nano /etc/nginx/sites-available/static.site
+```
+
+위와 같이 nginx 설정파일을 만듭니다.
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name static.hubs.tk; # 사이트 도메인 지정
+    location / {
+        rewrite       ^/(.*)$ https://static.hubs.tk/$1;  # 사이트 도메인 지정
+                }
+}
+
+server {
+listen 443 ssl http2;
+listen [::]:443 ssl http2;
+
+server_tokens off;
+server_name static.hubs.tk; # 사이트 도메인 지정
+
+index index.html;
+autoindex off;
+charset urtf-8;
+
+root /var/www/gatsby-minimal-public; # public root 설정하기
+
+error_page 404 /404.html;
+rewrite ^([^.\?]*[^/])$ $1/ permanent;
+try_files $uri $uri/ $uri/index.html =404;
+
+        location ~* \.(?:html)$ {
+          add_header Cache-Control "public, max-age=0, must-revalidate";
+          add_header X-Frame-Options SAMEORIGIN;
+          add_header X-Content-Type-Options nosniff;
+          add_header X-XSS-Protection "1; mode=block";
+          add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+        }
+
+        location /page-data {
+          add_header Cache-Control "public, max-age=0, must-revalidate";
+        }
+        location = /sw.js {
+          add_header Cache-Control "public, max-age=0, must-revalidate";
+        }
+        location = /manifest.webmanifest {
+          add_header Cache-Control "public, max-age=604800, must-revalidate";
+        }
+        location /static {
+          add_header Cache-Control "public, max-age=31536000, immutable";
+        }
+        location ~* \.(?:js|css|png|jpg)$ {
+          add_header Cache-Control "public, max-age=31536000, immutable";
+        }
+
+## SSL settings
+
+ssl_certificate /etc/letsencrypt/live/hubs.tk/fullchain.pem; # SSL 경로 지정
+ssl_certificate_key /etc/letsencrypt/live/hubs.tk/privkey.pem; # SSL 경로 지정
+ssl_trusted_certificate /etc/letsencrypt/live/hubs.tk/chain.pem; # SSL 경로 지정
+
+ssl_dhparam snippets/dhparams.pem; # dhparams.pem 경로 지정
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 1d;
+ssl_session_tickets off;
+
+ssl_ecdh_curve X25519:sect571r1:secp521r1:secp384r1;
+ssl_stapling on;
+ssl_stapling_verify on;
+resolver 8.8.8.8 8.8.4.4 valid=300s;
+resolver_timeout 10s;
+
+ssl_protocols TLSv1.2 TLSv1.3;
+ssl_prefer_server_ciphers off;
+ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+}
+```
+
+위 내용을 메모장에 복사 후 한글로 표시한 부분을 자신의 상황에 맞게 수정 후 붙여넣으면 됩니다.
+
+참고로 SSL 인증서 생성은 
+
+https://blog.wsgvet.com/letsencrypt-wildcard-certification-issue-and-mariadb-install/
+
+위 링크를 참조하시면 됩니다.
+
+---
+
+dhparams.pem 경로 지정 부분은
+
+https://blog.wsgvet.com/php7-4-install-and-gnuboard-5-4-install/
+
+`4. Nginx 설정파일 만들기`에서 `(3)dhparams.pem` 생성하기를 참조하세요.
+
+
+이제 거의 끝났습니다. 
+
+```
+ln -s /etc/nginx/sites-available/static.site /etc/nginx/sites-enabled/
+```
+
+위 명령어로 설정을 복사한 뒤
+
+```
+nginx -t
+```
+
+위 명령어로 nginx 설정파일에 이상이 없는지 체크 후, 문제가 없다면
+
+```
+service nginx reload
+```
+
+위 명령어로 재시작하면 됩니다.
+
+---
+
+## 참조 사이트
+
+https://docs.microsoft.com/ko-kr/azure/static-web-apps/publish-gatsby
+
+https://raghuvirkasturi.com/gatsby-nginx-conf/
+
+https://stackoverflow.com/questions/56963293/define-specific-cache-control-header-for-selected-file-only
+
+https://www.gatsbyjs.org/docs/caching/
