@@ -2,6 +2,8 @@ require(`dotenv`).config({
   path: `.env`,
 })
 
+const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
+
 module.exports = {
   siteMetadata: {
     // 사이트 이름 설정, 첫 화면 왼쪽 위에 붙는 사이트 이름입니다.
@@ -76,5 +78,13 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
-  ],
+    shouldAnalyseBundle && {
+      resolve: `gatsby-plugin-webpack-bundle-analyser-v2`,
+      options: {
+        analyzerMode: `static`,
+        reportFilename: `_bundle.html`,
+        openAnalyzer: false,
+      },
+    },
+  ].filter(Boolean),
 }
