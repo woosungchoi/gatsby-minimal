@@ -15,7 +15,7 @@ const Utterances: React.FC<IUtterancesProps> = React.memo(({ repo }) => {
         const attributes = {
             src,
             repo,
-            'issue-term': 'url',
+            'issue-term': 'pathname',
             label: 'comment',
             theme: 'icy-dark',
             crossOrigin: 'anonymous',
@@ -34,4 +34,4 @@ const Utterances: React.FC<IUtterancesProps> = React.memo(({ repo }) => {
 
 Utterances.displayName = 'Utterances';
 
-export default Utterances;
+export default Utterances; 
