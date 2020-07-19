@@ -1,14 +1,13 @@
 ---
-layout: post
 title: 'nginx에 phpmyadmin 설정 및 비밀번호 셋팅하기 우분투 20.04'
 author: [Woosung]
 tags: 
   - Google Cloud
-image: img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/phpmyadmin-cover.jpg
+banner: ./phpmyadmin-cover.jpg
 date: '2020-06-02T08:29:14.000Z'
-excerpt: phpmyadmin은 DB를 관리하기 매우 편합니다. 우분투 20.04에서 패키지로 제공하기 때문에 쉽게 설치할 수 있습니다.
-draft: false
+description: phpmyadmin은 DB를 관리하기 매우 편합니다. 우분투 20.04에서 패키지로 제공하기 때문에 쉽게 설치할 수 있습니다.
 ---
+![](./phpmyadmin-cover.jpg)
 
 Database 관리할 수 있는 강력한 툴인 phpmyadmin을 설치하는 방법에 대해 알려드리겠습니다.
 
@@ -25,17 +24,17 @@ Database 관리할 수 있는 강력한 툴인 phpmyadmin을 설치하는 방법
 
 아마 엄청나게 많은 패키지가 설치될건데요. y 엔터를 눌러서 다 설치합니다.
 
-![](img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/01-confing.png)
+![](./01-confing.png)
 
 위와 같이 핑크색 바탕의 내용이 나오는데 우리가 사용하는 nginx는 없습니다.
 
 탭을 누르고 엔터를 누릅니다.
 
-![](img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/02-config-db.png)
+![](./02-config-db.png)
 
 위와 같이 dbconfig-common으로 db를 설정하겠냐고 물어보는데 yes에 엔터를 누릅니다.
 
-![](img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/03-passwd.png)
+![](./03-passwd.png)
 
 위 화면은 phpmyadmin이 내부의 DB서버와 소통하는데 필요한 비번을 설정하는 화면입니다.
 
@@ -64,13 +63,13 @@ pma 대신에 아무거나 넣어도 상관없습니다. 참고로 phpmyadmin은
 
 이제 웹 브라우저에서 자신의 홈페이지 주소에서 /pma를 붙이면 바로 접속될 것입니다.
 
-![](img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/04-pma.png)
+![](./04-pma.png)
 
 위와 같이 뜨면 성공입니다.
 
 이제 MariaDB에서 생성했던 gnuuser 라는 DB의 유저로 접속해봅니다.
 
-![](img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/05-login-gnuuser.png)
+![](./05-login-gnuuser.png)
 
 위와 같이 뜨면 성공입니다.
 
@@ -82,7 +81,7 @@ pma 대신에 아무거나 넣어도 상관없습니다. 참고로 phpmyadmin은
 
 그런데 root 계정으로 로그인을 해야 DB 생성 및 삭제를 더 편하게 할 수 있습니다.
 
-![](img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/06-login-fail-root.png)
+![](./06-login-fail-root.png)
 
 하지만 위와 같이 현재 셋팅으로는 root 계정으로 로그인을 할 수 없습니다.
 
@@ -109,7 +108,7 @@ root를 대신할 pmauser를 생성합니다.
 
 다시 phpmyadmin 로그인 페이지로 가서 pmauser로 로그인 해봅니다.
 
-![](img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/07-pmauser-login.png)
+![](./07-pmauser-login.png)
 
 위와 같이 DB 생성 및 삭제 권한이 있으면 성공입니다.
 
@@ -180,7 +179,7 @@ yourid 부분을 원하는 아이디로 바꿔서 넣으세요.
 
 이제 다시 웹 브라우저에서 홈페이지 주소에서 /pma를 붙이면
 
-![](img/nginx-phpmyadmin-setting-and-password-config-ubuntu-20-04/08-auth-ok.png)
+![](./08-auth-ok.png)
 
 위와 같이 암호를 요구하는 페이지가 나옵니다.
 

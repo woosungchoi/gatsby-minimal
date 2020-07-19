@@ -1,14 +1,13 @@
 ---
-layout: post
 title: 'ghost 플랫폼 설치, 우분투 20.04, letsencrypt 와일드카드 인증서 설정하기'
 author: [Woosung]
 tags: 
   - Google Cloud
-image: img/ghost-install-ubuntu-20-04-letsencrypt-wildcard-certificate-setting/Ghost-Logo.png
+banner: ./Ghost-Logo.png
 date: '2020-05-28T15:31:18.000Z'
-excerpt: 구글 클라우드 플랫폼에서 우분투 20.04를 설치하고, letsencrypt로 와일드카드 인증서를 Nginx에 설정하고, nodejs 설치 후 ghost 플랫폼을 설치할 수 있습니다.
-draft: false
+description: 구글 클라우드 플랫폼에서 우분투 20.04를 설치하고, letsencrypt로 와일드카드 인증서를 Nginx에 설정하고, nodejs 설치 후 ghost 플랫폼을 설치할 수 있습니다.
 ---
+![](./Ghost-Logo.png)
 
 드디어 현재 이 홈페이지에서 사용하고 있는 ghost 플랫폼을 설치하기 위한 조건은 완성되었습니다.
 
@@ -100,7 +99,7 @@ ghostuser 계정으로 전환합니다.
 
 위 링크는 현재 ghost에서 지원하는 노드 버전입니다.
 
-![](img/ghost-install-ubuntu-20-04-letsencrypt-wildcard-certificate-setting/supported-node-versions.png)
+![](./supported-node-versions.png)
 
 2020년 5월 28일 현재는 12.x (Node v12 Erbium LTS)를 권장합니다.
 
@@ -404,7 +403,7 @@ aced.ga 대신에 자신의 도메인을 넣으면 거의 될겁니다. 다만 �
 
 이제 드디어 인터넷 주소창에 자신의 도메인을 넣어봅니다.
 
-![](img/ghost-install-ubuntu-20-04-letsencrypt-wildcard-certificate-setting/ghost-fin.png)
+![](./ghost-fin.png)
 
 위와 같이 나오면 성공입니다!
 
@@ -416,20 +415,20 @@ aced.ga 대신에 자신의 도메인을 넣으면 거의 될겁니다. 다만 �
 
 저의 경우 [https://aced.ga/ghost](https://aced.ga/ghost) 입니다.
 
-![](img/ghost-install-ubuntu-20-04-letsencrypt-wildcard-certificate-setting/3-welcome.png)
+![](./3-welcome.png)
 
 
 위와 같이 Create your account를 누릅니다.
 
-![](img/ghost-install-ubuntu-20-04-letsencrypt-wildcard-certificate-setting/4-create-your-account.png)
+![](./4-create-your-account.png)
 
 홈페이지의 제목, 사용자이름, 이메일 주소, 비번을 넣고 Last step을 누릅니다.
 
-![](img/ghost-install-ubuntu-20-04-letsencrypt-wildcard-certificate-setting/5-invite.png)
+![](./5-invite.png)
 
 스탭을 초대하라고 하지만 그냥 my site로 이동을 누릅니다.
 
-![](img/ghost-install-ubuntu-20-04-letsencrypt-wildcard-certificate-setting/6-admin-1.png)
+![](./6-admin-1.png)
 
 이제 관리자 화면까지 왔습니다. 기존에 있던 글을 지우려면 Published에 들어가서 다 지울 수 있습니다.
 

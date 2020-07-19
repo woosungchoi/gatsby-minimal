@@ -1,14 +1,13 @@
 ---
-layout: post
 title: '구글 클라우드 플랫폼에서 root SSH키 생성 후 WINSCP SFTP 접속하기'
 author: [Woosung]
 tags: 
   - Google Cloud
-image: img/google-cloud-platform-root-ssh-winscp-setting/sftp-cover.jpg
+banner: ./sftp-cover.jpg
 date: '2020-06-02T07:11:35.000Z'
-excerpt: SFTP를 사용하여 탐색기처럼 폴더를 이동하고, 파일을 즉각적으로 수정하는 방법에 대한 글입니다. root 권한으로 보안에 취약하지만 쉽게 사용할 수 있는 장점이 있습니다.
-draft: false
+description: SFTP를 사용하여 탐색기처럼 폴더를 이동하고, 파일을 즉각적으로 수정하는 방법에 대한 글입니다. root 권한으로 보안에 취약하지만 쉽게 사용할 수 있는 장점이 있습니다.
 ---
+![](./sftp-cover.jpg)
 
 SFTP를 사용하는 이유는 root 권한으로 탐색기처럼 파일을 찾아서 바로 수정할 수 있습니다.
 
@@ -32,7 +31,7 @@ SFTP를 사용하는 이유는 root 권한으로 탐색기처럼 파일을 찾�
 
 위 게시물에서 PuttyGen 단계에서 키를 생성할 때
 
-![](img/google-cloud-platform-root-ssh-winscp-setting/01-root-key-gen.png)
+![](./01-root-key-gen.png)
 
 위와 같이 Key comment 에 root을 넣습니다.
 
@@ -50,11 +49,11 @@ ppk 파일을 안전한 곳에 다운로드합니다.
 
 위 링크를 클릭하거나
 
-![](img/google-cloud-platform-root-ssh-winscp-setting/02-go-to-metadata.png)
+![](./02-go-to-metadata.png)
 
 위와 같이 Compute Engine -> 메타데이터를 클릭한 뒤 
 
-![](img/google-cloud-platform-root-ssh-winscp-setting/03-go-ssh-modify.png)
+![](./03-go-ssh-modify.png)
 
 SSH 탭에 가서 PuttyGen에서 생성한 내용을 넣고 저장합니다.
 
@@ -73,7 +72,7 @@ WINSCP를 다운 받습니다.
 
 위 링크에서 다운 받고 실행합니다.
 
-![](img/google-cloud-platform-root-ssh-winscp-setting/04-winscp-new.png)
+![](./04-winscp-new.png)
 
 위와 같이 뜨거나, 안뜨면 새로운 세션을 누르면 새로운 사이트를 추가할 수 있습니다.
 
@@ -81,7 +80,7 @@ WINSCP를 다운 받습니다.
 
 고급을 누릅니다.
 
-![](img/google-cloud-platform-root-ssh-winscp-setting/05-privkey-input.png)
+![](./05-privkey-input.png)
 
 위와 같이 인증을 눌러서 개인키 파일을 선택합니다. 아까 생성한 root용 ppk을 넣으면 됩니다.
 
@@ -89,7 +88,7 @@ WINSCP를 다운 받습니다.
 
 이제 로그인을 해봅니다. 비번을 넣으라고 나오는데 아까 만든 비번을 넣고 확인을 누릅니다.
 
-![](img/google-cloud-platform-root-ssh-winscp-setting/06-success.png)
+![](./06-success.png)
 
 드디어 위와 같이 접속이 되었습니다. 탐색기 형식으로 매우 간편하게 폴더 이동이 가능합니다.
 
@@ -123,13 +122,13 @@ root 사용자이기 때문에 모든 영역을 다닐 수 있으며, 왼쪽 PC�
 
 기다리실 수 있다면 그렇게 해도 되겠지만 몇가지 작업을 해서 좀더 빠르게도 가능합니다.
 
-![](img/google-cloud-platform-root-ssh-winscp-setting/07-zip.png)
+![](./07-zip.png)
 
 위와 같이 Nariya-1.0.5 폴더에 들어가서 원하는 폴더를 드래그하고 바로 zip으로 압축해줍니다.
 
 압축을 풀었을때 그 경로에 바로 올 수 있게 말이죠.
 
-![](img/google-cloud-platform-root-ssh-winscp-setting/08-drag-and-drop.png)
+![](./08-drag-and-drop.png)
 
 위와 같이 만든 압축파일을 서버의 원하는 폴더에 옮겨주면 복사가 됩니다.
 

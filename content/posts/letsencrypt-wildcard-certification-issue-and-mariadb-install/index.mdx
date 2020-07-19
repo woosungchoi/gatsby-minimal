@@ -1,14 +1,13 @@
 ---
-layout: post
 title: 'letsencrypt 와일드카드 인증서 발급 및 MariaDB 설치하기'
 author: [Woosung]
 tags: 
   - Google Cloud
-image: img/letsencrypt-wildcard-certification-issue-and-mariadb-install/le-logo-standard.png
+banner: ./le-logo-standard.png
 date: '2020-05-28T13:47:21.000Z'
-excerpt: HTTPS 접속에 필수적인 letsencrypt를 설치하고 와일드카드 인증서를 발급받을 수 있습니다. MariaDB를 설치하고 기본적인 셋팅을 합니다.
-draft: false
+description: HTTPS 접속에 필수적인 letsencrypt를 설치하고 와일드카드 인증서를 발급받을 수 있습니다. MariaDB를 설치하고 기본적인 셋팅을 합니다.
 ---
+![](./le-logo-standard.png)
 
 ## 1. letsencrypt를 통해 SSL 인증서 발급받기
 
@@ -85,7 +84,7 @@ yourdomain.com 도 자신의 도메인으로 바꿔주세요.
 
 
 
-![](img/letsencrypt-wildcard-certification-issue-and-mariadb-install/01-add-dns-txt-1.png)
+![](./01-add-dns-txt-1.png)
 
 위와 같이 +Add record를 누르르고 Type에는 TXT, Name에는 _acme-challenge 를 넣고 Content에 YeVmGJHxJ6UPbRbcJU어쩌고저쩌고 를 넣고 Save를 누릅니다.
 
@@ -110,7 +109,7 @@ yourdomain.com 도 자신의 도메인으로 바꿔주세요.
 
 아까와 똑같이 +Add record를 누르르고 Type에는 TXT, Name에는 _acme-challenge 를 넣고 Content에 yVOwRCb3yn5QUujoJ93-BDOyXs2Q어쩌고저쩌고저쩌고2 를 넣고 Save를 누릅니다.
 
-![](img/letsencrypt-wildcard-certification-issue-and-mariadb-install/02-TXT-fin-ad.png)
+![](./02-TXT-fin-ad.png)
 
 그러면 대략 위와 같은 화면으로 구성이 됩니다. (Content 부분은 수정하였습니다.)
 

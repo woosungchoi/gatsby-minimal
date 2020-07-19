@@ -1,14 +1,13 @@
 ---
-layout: post
 title: '구글 클라우드 플랫폼에서 SSH키 생성 후 PuTTY 접속하기'
 author: [Woosung]
 tags: 
   - Google Cloud
-image: img/google-cloud-platform-ssh-key-putty-connection/ssh-connection-cover-resized-tiny.jpg
+banner: ./ssh-connection-cover-resized-tiny.jpg
 date: '2020-06-02T05:32:00.000Z'
-excerpt: 구글 클라우드 플랫폼에 SSH키를 입력하고 PuTTY 접속하는 방법에 대하여 시작부터 끝까지 자세하게 설명해드립니다.
-draft: false
+description: 구글 클라우드 플랫폼에 SSH키를 입력하고 PuTTY 접속하는 방법에 대하여 시작부터 끝까지 자세하게 설명해드립니다.
 ---
+![](./ssh-connection-cover-resized-tiny.jpg)
 
 구글 클라우드 플랫폼에서 SSH로 접속할 때, 기본적으로 제공하는 브라우저 접속은 로그인이 필요하고, 반응이 느립니다. 
 
@@ -46,21 +45,21 @@ draft: false
 
 puttygen.exe를 실행하면
 
-![](img/google-cloud-platform-ssh-key-putty-connection/01-puttygen-gen.png)
+![](./01-puttygen-gen.png)
 
 위와 같이 나오는데요.
 
 Generate를 누릅니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/02-progress.png)
+![](./02-progress.png)
 
 위와 같이 진행사항이 업데이트가 되는데, 기다린다고 올라가지 않고 마우스 커서를 빨간 공간 안에서 흔들어 줘야 합니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/03-gen_fin.png)
+![](./03-gen_fin.png)
 
 그러면 위와 같이 Key가 생성되었습니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/04-save_priv-key.png)
+![](./04-save_priv-key.png)
 
 위와 같이 Key comment에 원하는 아이디를 넣습니다. 참고로 root도 가능합니다.
 
@@ -76,7 +75,7 @@ Confirm passphrase 에 비번을 똑같이 입력합니다.
 
 로그인할때 꼭 필요한 파일입니다. 안전한 곳에 저장하세요.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/05-copykey.png)
+![](./05-copykey.png)
 
 그리고 위와 같이 빨간 박스에 있는 내용물들을 모두 긁어서 복사합니다.
 
@@ -90,17 +89,17 @@ Confirm passphrase 에 비번을 똑같이 입력합니다.
 
 위 링크를 클릭하거나
 
-![](img/google-cloud-platform-ssh-key-putty-connection/06-go-to-metadata.png)
+![](./06-go-to-metadata.png)
 
 위와 같이 Compute Engine -> 메타데이터를 클릭합니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/07-go-ssh-modify.png)
+![](./07-go-ssh-modify.png)
 
 위와 같이 SSH키 탭을 누르고 수정을 누릅니다.
 
 제일 밑에 있는 "+ 항목 추가" 를 누릅니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/08-save-key.png)
+![](./08-save-key.png)
 
 위와 같이 PuttyGen에서 복사한 내용을 그대로 붙여넣기 합니다. 그러면 왼쪽에 지정한 id가 입력이 됩니다.
 
@@ -114,7 +113,7 @@ Confirm passphrase 에 비번을 똑같이 입력합니다.
 
 아까 다운 받은 Putty.exe 파일을 실행합니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/09-putty-start.png)
+![](./09-putty-start.png)
 
 위와 같이 뜰겁니다.
 
@@ -124,7 +123,7 @@ Confirm passphrase 에 비번을 똑같이 입력합니다.
 
 Saved Sessions에 원하는 이름을 넣고 Save를 누릅니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/10-input-data.png)
+![](./10-input-data.png)
 
 위와 같이 넣고 Save를 누르면 밑에 그 원했던 이름이 뜹니다.
 
@@ -134,7 +133,7 @@ Saved Sessions에 원하는 이름을 넣고 Save를 누릅니다.
 
 이제 ppk 파일을 불러와야 합니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/11-input-key.png)
+![](./11-input-key.png)
 
 위와 같이 왼쪽에 Connection에 SSH에 Auth를 누릅니다.
 
@@ -144,7 +143,7 @@ Saved Sessions에 원하는 이름을 넣고 Save를 누릅니다.
 
 그리고 밑에 있는 Open을 클릭합니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/12-alert.png)
+![](./12-alert.png)
 
 위와 같이 경고가 나오는데 당황하지 마시고 예를 누르면 됩니다
 
@@ -154,13 +153,13 @@ Saved Sessions에 원하는 이름을 넣고 Save를 누릅니다.
 
 아까 PuttyGen에서 비번을 넣고 키를 만들었다면
 
-![](img/google-cloud-platform-ssh-key-putty-connection/12-auth-with-passwd.png)
+![](./12-auth-with-passwd.png)
 
 위와 같이 비번을 넣으라고 나옵니다.
 
 아까 만들었던 비번을 넣으면 됩니다. 그러면 구글 클라우드 플랫폼에서 봤던 그 SSH가 화면이 나올 것입니다.
 
-![](img/google-cloud-platform-ssh-key-putty-connection/12-auth-without-passwd.png)
+![](./12-auth-without-passwd.png)
 
 혹시 비번을 안넣고 만들었다면 위와 같이 그냥 바로 접속됩니다. 보안에는 안좋아보이죠? ^^
 

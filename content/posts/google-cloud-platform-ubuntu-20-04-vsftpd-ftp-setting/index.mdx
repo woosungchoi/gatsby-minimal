@@ -1,14 +1,13 @@
 ---
-layout: post
 title: '구글 클라우드 우분투 20.04에서 vsftpd로 FTP 접속하는 방법'
 author: [Woosung]
 tags: 
   - Google Cloud
-image: img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/vsftpd-cover.jpg
+banner: ./vsftpd-cover.jpg
 date: '2020-06-02T17:53:31.000Z'
-excerpt: 우분투 20.04에서 vsftpd 패키지를 설치하고 기본 셋팅을 합니다. 그 후 서버와 구글 클라우드 방화벽 셋팅을 하고, 파일질라에 접속하여 파일을 전송합니다.
-draft: false
+description: 우분투 20.04에서 vsftpd 패키지를 설치하고 기본 셋팅을 합니다. 그 후 서버와 구글 클라우드 방화벽 셋팅을 하고, 파일질라에 접속하여 파일을 전송합니다.
 ---
+![](./vsftpd-cover.jpg)
 
 ## FTP를 사용해야 하는 이유
 
@@ -222,33 +221,33 @@ www-data 그룹에 있는 ftpwww도 수정할 수 있게 바꿔야 정상적으�
 
 ## 구글 클라우드 플랫폼 방화벽 열어주기
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/01-open-google-cloud.png)
+![](./01-open-google-cloud.png)
 
 구글 클라우드 플랫폼에 접속 -> VPC 네트워크 -> 방화벽을 클릭합니다.
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/02-make-firewall.png)
+![](./02-make-firewall.png)
 
 위와 같이 + 방화벽 규칙 만들기를 클릭합니다.
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/03-firewall-set.png)
+![](./03-firewall-set.png)
 
 빨간색 박스에 있는 내용을 다 넣습니다.
 
 특히 tcp에 20,21,10000-10100  을 넣어줍니다. 그리고 저장을 누릅니다.
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/04-compute-engine-vm.png)
+![](./04-compute-engine-vm.png)
 
 Compute Engine의 VM 인스턴스를 누릅니다.
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/05-select-vm.png)
+![](./05-select-vm.png)
 
 자신의 서버를 누릅니다.
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/06-modify.png)
+![](./06-modify.png)
 
 위와 같이 수정을 누릅니다.
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/07-network-tag-add.png)
+![](./07-network-tag-add.png)
 
 네트워크 태그에 ftpd 를 넣습니다.
 
@@ -267,7 +266,7 @@ Compute Engine의 VM 인스턴스를 누릅니다.
 
 설치하면
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/09-filezilla.png)
+![](./09-filezilla.png)
 
 위와 같은 화면이 나오는데 왼쪽위에 아이콘을 누른 후 스샷에 있는대로 정보를 넣습니다.
 
@@ -283,7 +282,7 @@ Compute Engine의 VM 인스턴스를 누릅니다.
 
 그리고 연결을 누릅니다.
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/10-filezilla-success.png)
+![](./10-filezilla-success.png)
 
 드디어 연결이 성공했습니다.
 
@@ -372,7 +371,7 @@ Compute Engine의 VM 인스턴스를 누릅니다.
 
 이제 파일질라로 가서 똑같이 접속합니다.
 
-![](img/google-cloud-platform-ubuntu-20-04-vsftpd-ftp-setting/11-secure.png)
+![](./11-secure.png)
 
 그러면 위와 같이 letsencrypt 인증서 내용이 나오는데 확인을 누르면 접속됩니다.
 
