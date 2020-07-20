@@ -42,7 +42,7 @@ module.exports = {
             slug: `/about`,
           },
         ],
-        formatString: `YYYY년 MM월 DD일`,
+        formatString: `YYYY-MM-DD hh:mm:ss`,
         feedTitle: `Woosung blog`,
       },
     },
