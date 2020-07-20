@@ -91,6 +91,11 @@ const code = {
       background: `#61dafb`,
       color: `black`,
     },
+    'pre[class~="language-php"]:before': {
+      content: `"php"`,
+      background: `#61dafb`,
+      color: `black`,
+    },
     'pre[class~="language-html"]:before': {
       content: `"html"`,
       background: `#005a9c`,
