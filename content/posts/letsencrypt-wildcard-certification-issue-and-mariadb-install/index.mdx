@@ -15,15 +15,62 @@ description: HTTPS 접속에 필수적인 letsencrypt를 설치하고 와일드�
 ---
 ![](./le-logo-standard.png)
 
-## 1. letsencrypt를 통해 SSL 인증서 발급받기
+## 들어가며
 
-보통 1개의 도메인만 발급 받는 경우가 많은데요. (예를들면 aced.ga 하나)
+보통 1개의 도메인만 발급 받는 경우가 많은데요. (예를들면 wsgvet.com 하나)
 
 추후 확장성 및 관리의 용이성을 위해 Wildcard SSL 인증서를 받을 것입니다.
 
-aced.ga와 *.aced.ga가 가능한거죠. 나중에 blog.aced.ga 라든지, bbs.aced.ga 모두 하나의 인증서로 SSL 연결이 가능합니다.
+wsgvet.com와 *.wsgvet.com가 가능한거죠. 나중에 blog.wsgvet.com 라든지, bbs.wsgvet.com 모두 하나의 인증서로 SSL 연결이 가능합니다.
 
 클라우드 플레어에서만 설정하면 바로 발급되므로 추천드립니다.
+
+---
+
+7월 24일 전에 와일드카드 인증서를 적용하신 분은 꼭 1번의 방법으로 다시 해주셔야 합니다. 
+
+기존 방식으로 발급받은 경우 `certbot renew` 명령어로 갱신하면 에러가 뜹니다.
+
+그 이유는 `manual` 방식으로 발급 받은 경우 자동 갱신이 안되기 때문입니다.
+
+---
+
+## 1. acme.sh를 사용한 SSL 인증서 발급받기
+
+### (1) Freenom에서 발급 받은 무료 도메인 `ga,ml,cf,gq,tk` 을 위한 방법
+
+아쉽게도 `Cloudflare`의 DNS API 방식으로는 발급이 불가능합니다. 따라서 `와일드카드` 인증서를 발급 받을 경우 자동 갱신이 되지 않습니다.
+
+DNS 인증방식으로 자동 발급 및 와일드카드 인증서 자동 갱신을 위해서는
+
+1. 무료 도메인이 아닌 유료 도메인을 구입한다.
+
+2. `Cloudflare`가 아닌 다른 DNS 서비스를 이용한다. (<a href="https://asia.cloudns.net/" target="_blank" rel="noopener noreferrer">ClouDNS</a> 등)
+
+위 2가지 방식으로 와일드카드 인증서를 발급 받을 수 있습니다. 
+
+와일드카드 인증서가 필요없는 경우 `acme.sh`를 이용하여 Webroot 방식으로 발급 받을 수 있습니다.
+
+현재 단계에서는 발급받을 수 없고, 뒤에 이어지는 `Ghost 플랫폼`, `그누보드`, `워드프레스` 설치 후 발급 받을 수 있습니다.
+
+해당 글에 방법을 첨부하겠습니다. 미리 보시려면
+
+<a href="https://www.wsgvet.com/bbs/board.php?bo_table=home&wr_id=639" target="_blank" rel="noopener noreferrer">DNS 인증을 통한 acme.sh Letsencrypt SSL 인증서 발급받기</a>
+
+위 링크에서 1번, 4번을 참조하시면 됩니다.
+
+---
+
+### (2) Freenom에서 발급 받지 않은 유료 도메인(.com, .net, .co.kr 등등)
+
+<a href="https://www.wsgvet.com/bbs/board.php?bo_table=home&wr_id=639" target="_blank" rel="noopener noreferrer">DNS 인증을 통한 acme.sh Letsencrypt SSL 인증서 발급받기</a>
+
+위 링크를 그대로 따라하시면 매우 편하게 와일드카드 인증서 발급 및 자동갱신을 적용할 수 있습니다.
+
+---
+
+## 2. letsencrypt를 통해 SSL 인증서 발급받기
+### (3개월마다 수동 인증 필수이므로 추천하지 않습니다.)
 
 인증서 발급 패키지인 certbot을 먼저 설치합니다.
 
@@ -158,37 +205,9 @@ yourdomain.com 도 자신의 도메인으로 바꿔주세요.
 
 다음에 Nginx SSL에 매우 필수적인 경로입니다. 이 경로는 꼭 저장해주시는게 좋습니다.
 
-그런데 인증서 유효기간이 3달 밖에 되지 않기 때문에 매일 갱신 도전을 하도록 하면 만료될 일이 없습니다.
-
-    crontab -e
-    
-
-위 명령어를 내려서 자동 명령어를 등록해줍니다.
-
-> no crontab for root - using an empty one
-
-> Select an editor.  To change later, run 'select-editor'.
-
->   1. /bin/nano        <---- easiest
-
->   2. /usr/bin/vim.basic
-
->   3. /usr/bin/vim.tiny
-
->   4. /bin/ed
-
-위와 같은 내용이 나올 수 있는데. 1 엔터 누르면 됩니다.
-
-    0 1 * * * certbot renew --post-hook 'service nginx restart;' >> /var/log/letsencrypt/renew.log
-    
-
-위와 같이 넣고 컨트롤+O 엔터, 컨트롤+X 를 누르면 매일 새벽 1시에 갱신 명령을 자동으로 내리고, 갱신이 성공하면 nginx를 자동으로 재시작하여 적용됩니다.
-
-보통 만료 한달 전부터 갱신이 가능하기 때문에 7월 26일이 되면 자동으로 갱신될 것입니다.
-
 ---
 
-## 2. MariaDB 설치하기
+## 3. MariaDB 설치하기
 
 ghost 플랫폼이나 그누보드, 워드프레스에서는 데이터베이스 역할을 해주는 패키지가 필요합니다.
 
@@ -336,11 +355,6 @@ MariaDB에 기본 이모지 출력을 위한 설정을 미리 합니다.
     
 
 위 명령어로 MariaDB를 재시작합니다.
-
-    sudo shutdown now -r
-    
-
-위 명령어로 서버를 재부팅해줍니다.
 
 다음에는 Nodejs와 ghost 플랫폼 설치를 해보겠습니다.
 
