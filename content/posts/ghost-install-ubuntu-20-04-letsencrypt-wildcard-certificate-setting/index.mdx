@@ -637,6 +637,9 @@ SSH 창에 있는 모든 내용을 삭제합니다.
         location / {
             rewrite ^/(.*)$ https://aced.ga/$1 permanent;  # aced.ga를 자신의 도메인으로 수정하세요.
         }
+        location ~ /.well-known {
+        allow all;
+        }
     } 
     
     server {
@@ -648,14 +651,18 @@ SSH 창에 있는 모든 내용을 삭제합니다.
     rewrite ^/(.*)$  https://aced.ga/$1 permanent;    # aced.ga를 자신의 도메인으로 수정하세요.
     }
     
-        location / {
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header Host $http_host;
-            proxy_pass http://127.0.0.1:2368;
-        }
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_pass http://127.0.0.1:2368;
+    }
     
+    location ~ /.well-known {
+        allow all;
+    }
+
     client_max_body_size 100m;
     server_tokens off;
     
