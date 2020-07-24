@@ -522,59 +522,6 @@ SSL 관련 설정파일을 미리 만들면 관리하기 편합니다.
 
 ---
 
-아까 nginx 설정할 때 **/etc/nginx/sites-enabled/aced.ga.conf**  이 경로가 중요하다고 했죠?
-
-이제 수정 할 것입니다.
-
-    sudo nano /etc/nginx/sites-enabled/aced.ga.conf
-    
-
-위 명령어로 Nginx 설정을 할 것입니다. aced.ga는 자신의 환경에 맞게 수정해주세요.
-
-SSH 창에 있는 모든 내용을 삭제합니다.
-
-컨트롤+K를 누르면 한줄씩 삭제됩니다.
-
-    server {
-        listen 80;
-        listen [::]:80;
-        server_name www.aced.ga aced.ga; # aced.ga를 자신의 도메인으로 수정하세요.
-    
-    server_name aced.ga www.aced.ga; # aced.ga를 자신의 도메인으로 수정하세요.
-    root /var/www/ghost/system/nginx-root;
-
-    client_max_body_size 100m;
-    server_tokens off;
-
-    }
-    
-
-위 내용을 전부 마우스로 긁어서 복사해서 붙여넣기 합니다.
-
-aced.ga 대신에 자신의 도메인을 넣으면 됩니다.
-
-컨트롤 + O, 엔터, 컨트롤 + X 엔터를 누르면 저장 후 빠져나옵니다.
-
-    sudo nginx -t
-    
-
-위 명령어로 설정이 잘 되었는지 확인할 수 있습니다.
-
-```
- $ sudo nginx -t
- nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
- nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
-
-위와 같이 ok와 successful이 나오면 성공입니다.
-
-    sudo service nginx restart
-    
-
-위 명령어로 nginx를 재시작 해줍니다.
-
----
-
 이제 acme.sh를 통한 webroot 인증서 발급을 위한 준비는 끝났습니다.
 
 ### acme.sh 설치하기
@@ -599,7 +546,7 @@ wget -O - https://get.acme.sh | sh
 
 위 명령어로도 설치할 수 있습니다.
 
-설치할 때 빨간색 글자가 나오는데, 무시해도 됩니다.
+설치할 때 빨간색 글자가 나올 수도 있는데, 무시해도 됩니다.
 
 SSH 터미널(Putty 등)을 끄고, 다시 접속합니다.
 

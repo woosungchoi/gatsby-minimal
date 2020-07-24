@@ -75,19 +75,19 @@ letsencrypt 와일드카드 인증서 발급 및 MariaDB 설치하기
 
 위 항목을 찾아서 다 바꿔줍니다.
 
-찾는 방법은 컨트롤 + W 누르면 밑에 검색창이 나오는데, 앞부분을 복사해서 붙여넣고 엔터를 치면 찾아집니다.
+찾는 방법은 `컨트롤 + W` 누르면 밑에 검색창이 나오는데, 앞부분을 복사해서 붙여넣고 엔터를 치면 찾아집니다.
 
-예를들어 short_open_tag를 바꾸고 싶다면 short_open_tag 를 넣고 엔터를 치면 해당부분으로 갑니다.
+예를들어 `short_open_tag`를 바꾸고 싶다면 `short_open_tag` 를 넣고 엔터를 치면 해당부분으로 갑니다.
 
-참고로 short_open_tag는 처음 검색하면 설명 부분이 나오는데 한번더 검색하면 제대로 나옵니다.
+참고로 `short_open_tag`는 처음 검색하면 설명 부분이 나오는데 한번더 검색하면 제대로 나옵니다.
 
-cgi.fix_pathinfo는 아마도 " ;cgi.fix_pathinfo = 1 " 이렇게 되어있을텐데요. 앞에 ; 은 주석으로 처리한다는 뜻이므로 이것도 빼야겠죠.
+`cgi.fix_pathinfo`는 아마도 `;cgi.fix_pathinfo = 1` 이렇게 되어있을텐데요. 앞에 `;` 은 주석으로 처리한다는 뜻이므로 이것도 빼야겠죠.
 
-즉 ;cgi.fix_pathinfo = 1 을 cgi.fix_pathinfo = 0  이렇게 바꿔줘야 하는 것입니다.
+즉 `;cgi.fix_pathinfo = 1` 을 `cgi.fix_pathinfo = 0`  이렇게 바꿔줘야 하는 것입니다.
 
 그 뒤에 수정하면 됩니다. 전부 찾아서 다 바꾼 후
 
-컨트롤 + O, 엔터, 컨트롤 + X를 누르면 저장 후 빠져나와집니다.
+`컨트롤 + O`, `엔터`, `컨트롤 + X`를 누르면 저장 후 빠져나와집니다.
 
     sudo systemctl reload php7.4-fpm
     
@@ -101,24 +101,24 @@ cgi.fix_pathinfo는 아마도 " ;cgi.fix_pathinfo = 1 " 이렇게 되어있을�
     sudo mysql -u root -p
     
 
-위 명령어로 MariaDB로 들어갑니다.
+위 명령어로 `MariaDB`로 들어갑니다.
 
     CREATE DATABASE wpdb;
     
 
-위 명령어로 wpdb라는 DB를 만듭니다.
+위 명령어로 `wpdb`라는 DB를 만듭니다.
 
     CREATE USER 'wpdbuser'@'localhost' IDENTIFIED BY 'password';
     
 
-위 명령어로 wpdbuser라는 MariaDB의 유저를 생성하고 그 비밀번호를 password로 합니다.
+위 명령어로 `wpdbuser`라는 `MariaDB`의 유저를 생성하고 그 비밀번호를 `password`로 합니다.
 
 **password를 꼭 자신에게 맞는 비번으로 바꾸세요! 이 비번은 DB입력할때 꼭 필요한 비번입니다.**
 
     GRANT ALL ON wpdb.* TO 'wpdbuser'@'localhost' WITH GRANT OPTION;
     
 
-위 명령어로 wpdbuser유저가 wpdb라는 DB의 모든 권한을 가지게 됩니다.
+위 명령어로 `wpdbuser`유저가 `wpdb`라는 DB의 모든 권한을 가지게 됩니다.
 
     FLUSH PRIVILEGES;
     EXIT;
@@ -136,13 +136,13 @@ cgi.fix_pathinfo는 아마도 " ;cgi.fix_pathinfo = 1 " 이렇게 되어있을�
     sudo mv wordpress /var/www/wordpress
     
 
-위 4개의 명령어로 워드프레스 최신판을 다운로드하고, 압축을 풀고, /var/www/wordpress에 위치하게 합니다.
+위 4개의 명령어로 워드프레스 최신판을 다운로드하고, 압축을 풀고, `/var/www/wordpress`에 위치하게 합니다.
 
     sudo chown -R www-data:www-data /var/www/wordpress/
     sudo chmod -R 755 /var/www/wordpress/
     
 
-위 두 명령어로 해당 폴더의 소유권을 www-data에게 주고, 권한을 755로 줍니다.
+위 두 명령어로 해당 폴더의 소유권을 `www-data`에게 주고, 권한을 `755`로 줍니다.
 
 ---
 
@@ -190,7 +190,7 @@ cgi.fix_pathinfo는 아마도 " ;cgi.fix_pathinfo = 1 " 이렇게 되어있을�
 
 위 내용을 그대로 복사 후 붙여넣기 해줍니다.
 
-컨트롤 + O, 엔터, 컨트롤 + X 엔터를 누르면 저장 후 빠져나옵니다.
+`컨트롤 + O`, `엔터`, `컨트롤 + X` 엔터를 누르면 저장 후 빠져나옵니다.
 
 ---
 
@@ -201,9 +201,9 @@ cgi.fix_pathinfo는 아마도 " ;cgi.fix_pathinfo = 1 " 이렇게 되어있을�
 
 위 명령어로 SSL 설정파일 만들기에 들어갑니다.
 
-    ssl_certificate /etc/letsencrypt/live/yoursitename/fullchain.pem; # 이 경로도 인증서 만들때 중요했던, 그 경로로 바꾸세요.
-    ssl_certificate_key /etc/letsencrypt/live/yoursitename/privkey.pem; # 이 경로도 인증서 만들때 중요했던, 그 경로로 바꾸세요.
-    ssl_trusted_certificate /etc/letsencrypt/live/yoursitename/chain.pem;  # 이 경로도 인증서 만들때 중요했던, 그 경로로 바꾸세요.
+    ssl_certificate /etc/nginx/ssl/fullchain.pem; # SSL 풀체인 인증서 경로. 자신의 환경에 맞게 바꾸세요.
+    ssl_certificate_key /etc/nginx/ssl/privkey.pem; # SSL 프라이빗 키 경로. 자신의 환경에 맞게 바꾸세요.
+    ssl_trusted_certificate /etc/nginx/ssl/chain.pem;  # SSL 인증서 경로. 자신의 환경에 맞게 바꾸세요.
     
     ssl_dhparam snippets/dhparams.pem;
     ssl_session_cache shared:SSL:10m;
@@ -228,21 +228,11 @@ cgi.fix_pathinfo는 아마도 " ;cgi.fix_pathinfo = 1 " 이렇게 되어있을�
 
 위 내용을 메모장에 복사 후 **수정**한 뒤에 붙여넣기 해줍니다.
 
-제일 위에 인증서 경로를 꼭 수정해주세요! 
+제일 위에 인증서 경로를 자신의 환경에 맞게 수정해주세요.
 
-보통 자신의 홈페이지 주소를 넣으면 됩니다.
+제가 알려드릴 `acme.sh`로 인증서를 발급받으면 수정할 필요가 없습니다.
 
-예를들어 홈페이지 주소가 abc.com  이면
-
-ssl_certificate /etc/letsencrypt/live/yoursitename/fullchain.pem;
-
-위 내용에서 yoursitename을 abc.com으로 바꿔서
-
-ssl_certificate /etc/letsencrypt/live/abc.com/fullchain.pem;
-
-위와 같이 바꾸면 됩니다.
-
-다 바꾼 후 컨트롤 + O, 엔터, 컨트롤 + X 엔터를 누르면 저장 후 빠져나옵니다.
+다 바꾼 후 `컨트롤 + O`, `엔터`, `컨트롤 + X` 엔터를 누르면 저장 후 빠져나옵니다.
 
 ---
 
@@ -251,9 +241,168 @@ ssl_certificate /etc/letsencrypt/live/abc.com/fullchain.pem;
     sudo openssl dhparam -out /etc/nginx/snippets/dhparams.pem 2048
     
 
-위 명령어로 dhparams.pem 파일을 생성합니다.
+위 명령어로 `dhparams.pem` 파일을 생성합니다.
 
 대략 10~20초면 생성이 됩니다.
+
+---
+
+SSL 인증서를 미리 만들었다면 그대로 진행하면 됩니다.
+
+SSL 인증서가 없다면
+
+1. .cf, .ga, .gq, .ml .tk 무료 도메인을 가지고 있는 경우 이 단계에서 인증서를 생성할 수 있습니다.
+
+바로 밑에 `무료 도메인 전용 인증서 생성하기`를 참고하세요!
+
+2. .com, .net, .co.kr 등 유료 도메인을 가지고 있는 경우
+
+<a href="https://www.wsgvet.com/bbs/board.php?bo_table=home&wr_id=639" target="_blank" rel="noopener noreferrer">DNS 인증을 통한 acme.sh Letsencrypt SSL 인증서 발급받기</a>
+
+위 링크에서 클라우드플레어를 통하여 매우 쉽게 와일드카드 인증서 및 자동갱신을 설정할 수 있습니다.
+
+인증서를 생성했다면 밑의 `무료 도메인 전용 인증서 생성하기`는 건너뛰고 `(4) 서버 설정파일 만들기`로 넘어가면 됩니다!
+
+---
+
+### 무료 도메인 전용 인증서 생성하기
+
+이제 Letsencrypt의 webroot 방식으로 인증서를 생성할 수 있습니다.
+
+```
+sudo nano /etc/nginx/sites-available/wordpress
+```
+
+위 명령어로 `Nginx`설정파일을 만들고 들어갑니다.
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name www.some.ga some.ga;  #some.ga를 자신이 원하는 도메인으로 수정하세요.
+    
+    access_log off;
+     
+    root /var/www/wordpress;
+    index index.php;
+    
+    include snippets/wp-conf.conf;
+}
+```
+
+위 내용에서 `some.ga` 부분을 자신의 도메인으로 바꿔주세요.
+
+그리고 컨트롤 + O, 엔터, 컨트롤 + X 엔터를 누르면 저장 후 빠져나옵니다.
+
+---
+
+    sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+
+위 명령어로 설정파일을 활성화되게 해줍니다.
+
+    sudo rm -f /etc/nginx/sites-enabled/default
+    
+위 명령어로 기존 활성화된 default 서버 링크만 삭제해줍니다.
+
+    sudo nginx -t
+    
+위 명령어로 설정에 이상이 없는지 확인합니다.
+
+```
+ $ sudo nginx -t
+ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+ nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+위와 같이 `ok`와 `successful`이 나오면 성공입니다.
+
+    sudo service nginx restart
+    
+
+위 명령어로 nginx를 재시작 해줍니다.
+
+---
+
+이제 `acme.sh`를 통한 webroot 인증서 발급을 위한 준비는 끝났습니다.
+
+### acme.sh 설치하기
+
+```
+sudo su
+```
+
+위 명령어로 root 계정으로 들어갑니다.
+
+root 계정이 아니면 권한 문제가 생길 수 있습니다. 공식 매뉴얼에는 sudo 명령어를 추천하지 않습니다.
+
+```
+curl https://get.acme.sh | sh
+```
+
+위 명령어로 설치할 수 있습니다. 만약에 안된다면
+
+```
+wget -O - https://get.acme.sh | sh
+```
+
+위 명령어로도 설치할 수 있습니다.
+
+설치할 때 빨간색 글자가 나올 수도 있는데, 무시해도 됩니다.
+
+SSH 터미널(Putty 등)을 끄고, 다시 접속합니다.
+
+SSH에 다시 접속하면 별다른 작업을 하지 않아도 root 계정으로 `acme.sh` 명령어를 바로 쓸 수 있습니다.
+
+---
+
+### 인증서 발급 받기
+
+```
+sudo su
+mkdir /etc/nginx/ssl
+```
+
+우선 위와 같이 root로 로그인 후 SSL 인증서가 저장될 폴더를 생성합니다.
+
+```
+acme.sh --issue -w /var/www/wordpress -d example.com -d www.example.com -d blog.example.com -d home.example.com -d nas.example.com --key-file /etc/nginx/ssl/privkey.pem --fullchain-file /etc/nginx/ssl/fullchain.pem --cert-file /etc/nginx/ssl/chain.pem --reloadcmd "systemctl reload nginx.service"
+
+```
+
+위와 같이 webroot 방식으로 발급받으면 멀티도메인 거의 무제한(100개까지)으로 발급 받을 수 있습니다.
+
+발급 받고 싶은 도메인 주소도 `-d example.com` 형식으로 추가해주면 됩니다.
+
+`example.com`만 자신의 도메인으로 수정해주세요!
+
+```
+[Tue 02 Jun 2020 10:35:49 PM KST] Your cert is in  /root/.acme.sh/aced.ga/aced.ga.cer
+[Tue 02 Jun 2020 10:35:49 PM KST] Your cert key is in  /root/.acme.sh/aced.ga/aced.ga.key
+[Tue 02 Jun 2020 10:35:49 PM KST] The intermediate CA cert is in  /root/.acme.sh/aced.ga/ca.cer
+[Tue 02 Jun 2020 10:35:49 PM KST] And the full chain certs is there:  /root/.acme.sh/aced.ga/fullchain.cer
+[Tue 02 Jun 2020 10:35:49 PM KST] Installing cert to:/etc/nginx/ssl/chain.pem
+[Tue 02 Jun 2020 10:35:49 PM KST] Installing key to:/etc/nginx/ssl/privkey.pem
+[Tue 02 Jun 2020 10:35:49 PM KST] Installing full chain to:/etc/nginx/ssl/fullchain.pem
+[Tue 02 Jun 2020 10:35:49 PM KST] Run reload cmd: systemctl reload nginx.service
+[Tue 02 Jun 2020 10:35:49 PM KST] Reload success
+```
+
+위와 같이 잘 발급되고, 원하는 위치에 인증서가 이동된 것을 확인할 수 있습니다.
+
+참고로 `ECDSA` 인증서를 발급 받고 싶으시면
+
+위 명령어에서 `--keylength ec-256` (prime256v1, ECDSA P-256) 또는 `--keylength ec-384` (secp384r1, ECDSA P-384)를 넣어주면 됩니다.
+
+```
+acme.sh --issue --keylength ec-256 -w /var/www/wordpress -d aced.ga -d www.aced.ga -d blog.aced.ga -d home.aced.ga -d nas.aced.ga --key-file /etc/nginx/ssl/privkey.pem --fullchain-file /etc/nginx/ssl/fullchain.pem --cert-file /etc/nginx/ssl/chain.pem --reloadcmd "systemctl reload nginx.service"
+```
+
+위와 같이 실행하면 ECDSA P-256 인증서가 생성됩니다.
+
+다른 상세한 사항은 <a href="https://www.wsgvet.com/bbs/board.php?bo_table=home&wr_id=639" target="_blank" rel="noopener noreferrer">DNS 인증을 통한 acme.sh Letsencrypt SSL 인증서 발급받기</a>를 참조하세요!
+
+acme.sh를 통해서 인증서를 생성하면 60일 뒤에 자동으로 갱신해줍니다. 그러니 자동갱신에 대한 걱정은 안하셔도 됩니다 ^^
 
 ---
 
@@ -261,8 +410,9 @@ ssl_certificate /etc/letsencrypt/live/abc.com/fullchain.pem;
 
     sudo nano /etc/nginx/sites-available/wordpress
     
-
 위 명령어로 설정파일로 들어갑니다.
+
+기존에 있는 내용을 `컨트롤 + K` 를 눌러 모두 삭제하세요. 
 
     server {
         listen 80;
@@ -293,23 +443,21 @@ ssl_certificate /etc/letsencrypt/live/abc.com/fullchain.pem;
     }
     
 
-위 내용을 **그대로 붙이지 말고**, 메모장에 붙여넣기 한 뒤에 example.com 을 자신의 홈페이지 주소로 바꿔야 됩니다.
+위 내용을 **그대로 붙이지 말고**, 메모장에 붙여넣기 한 뒤에 `example.com` 을 자신의 홈페이지 주소로 바꿔야 됩니다.
 
-다 바꾼 후 붙여넣습니다. 그 뒤에 컨트롤 + O, 엔터, 컨트롤 + X 엔터를 누르면 저장 후 빠져나옵니다.
+다 바꾼 후 붙여넣습니다. 그 뒤에 `컨트롤 + O`, `엔터`, `컨트롤 + X` 엔터를 누르면 저장 후 빠져나옵니다.
 
     sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
     
 
-위 명령어로 설정파일을 활성화되게 해줍니다.
+위 명령어로 설정파일을 활성화되게 해줍니다. 무료 도메인 설정 때 했다면 안해도 됩니다. 2번 해도 상관없습니다 ^^;;
 
     sudo rm -f /etc/nginx/sites-enabled/default
     
-
 위 명령어로 기존 활성화된 default 서버 링크만 삭제해줍니다.
 
     sudo nginx -t
     
-
 위 명령어로 설정에 이상이 없는지 확인합니다.
 
     nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -345,11 +493,11 @@ ssl_certificate /etc/letsencrypt/live/abc.com/fullchain.pem;
 
 위와 같이 아까 DB 만들었던 그 내용을 넣으면 됩니다.
 
-데이터베이스 이름에 wpdb 를 넣고
+데이터베이스 이름에 `wpdb` 를 넣고
 
-사용자명에 wpdbuser 를 넣고
+사용자명에 `wpdbuser` 를 넣고
 
-암호는 password 대신에 넣었던 자신의 비번을 넣으면 됩니다.
+암호는 `password` 대신에 넣었던 자신의 비번을 넣으면 됩니다.
 
 데이터베이스 호스트와 테이블 접두어는 그대로 두고 전송을 누릅니다.
 
