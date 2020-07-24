@@ -270,7 +270,9 @@ SSL 상세 설정은 뒷 부분에서 설정할 것입니다.
  ℹ Setting up SSL [skipped]
 ```
 
-Y 엔터를 눌렀다면 자동으로 Letsencrypt로 발급 후 알아서 Nginx까지 설정해줍니다.
+`Y` 엔터를 눌렀다면 자동으로 Letsencrypt로 발급 후 알아서 Nginx까지 설정해줍니다.
+
+이메일 넣고 조금만 기다리면 알아서 `acme.sh`를 통해 webroot 방식으로 인증서를 발급해줍니다.
 
 하지만 와일드카드 인증서 설정을 위해서 N 엔터를 눌렀다면 스킵이 될 것입니다.
 
@@ -411,6 +413,9 @@ SSH 창에 있는 모든 내용을 삭제합니다.
         location / {
             rewrite ^/(.*)$ https://aced.ga/$1 permanent;  # aced.ga를 자신의 도메인으로 수정하세요.
         }
+        location ~ /.well-known {
+        allow all;
+        }
     } 
     
     server {
@@ -422,19 +427,23 @@ SSH 창에 있는 모든 내용을 삭제합니다.
     rewrite ^/(.*)$  https://aced.ga/$1 permanent;    # aced.ga를 자신의 도메인으로 수정하세요.
     }
     
-        location / {
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header Host $http_host;
-            proxy_pass http://127.0.0.1:2368;
-        }
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_pass http://127.0.0.1:2368;
+    }
     
     client_max_body_size 100m;
     server_tokens off;
     
     listen [::]:443 ssl http2 default_server ipv6only=on;
     listen 443 ssl http2 default_server;
+
+    location ~ /.well-known {
+        allow all;
+    }
     
     include snippets/ssl.conf;
     }
