@@ -127,6 +127,8 @@ yourpassword 꼭 수정하세요!
 
 위 명령어로 압축파일을 삭제합니다.
 
+---
+
 이제 권한을 수정해야 합니다.
 
     sudo chmod -R 755 gnuboard
@@ -148,6 +150,8 @@ data 폴더의 권한을 707로 줍니다.
     
 
 그누보드 폴더 이하의 모든 파일과 폴더의 소유권을 www-data에게 줍니다.
+
+---
 
     sudo nano /var/www/gnuboard/config.php
     
@@ -173,6 +177,20 @@ aced.ga와 같이 서브도메인이 없이 넣어 됩니다. 이는 원하는�
     
 
 위와 같은 형식으로 넣고 저장하면 됩니다.
+
+---
+
+40번째 줄에
+
+```
+// Set Databse table default Charset
+// utf8, utf8mb4 등 지정 가능 기본값은 utf8, 설치전에 utf8mb4 으로 수정시 모든 테이블에 이모지 입력이 가능합니다. utf8mb4 는 mysql 또는 mariadb 5.5 버전 이상을 요구합니다.
+define('G5_DB_CHARSET', 'utf8mb4');
+```
+
+위와 같이 `utf8`을 `utf8mb4`로 바꿔줍니다. 이모지를 제목과 본문, 댓글에 표시할 수 있습니다.
+
+---
 
 그누보드 파일 설정은 이제 끝입니다.
 
