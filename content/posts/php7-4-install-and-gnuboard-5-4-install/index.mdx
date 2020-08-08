@@ -85,45 +85,33 @@ yourpassword 꼭 수정하세요!
 
 ## 3. 그누보드 설치파일 다운받기
 
-    cd /var/www
-    
+```
+mkdir -p /var/www/gnuboard
+```
 
-위 명령어로 www 디렉토리로 이동합니다.
+위 명령어로 그누보드 파일이 들어갈 폴더를 생성합니다.
 
-    sudo wget https://github.com/gnuboard/gnuboard5/tarball/master
-    
+```
+cd /var/www/gnuboard
+```
+
+위 명령어로 폴더로 이동합니다.
+
+```
+curl -o gnuboard.tar.gz -fSL https://github.com/gnuboard/gnuboard5/tarball/master
+```
 
 위 명령어로 그누보드 최신버전을 다운 받습니다.
 
-    sudo tar -xvf master
-    
-
-압축을 해제합니다.
-
 ```
- .
- .
- .
- gnuboard-gnuboard5-c875121/theme/basic/tail.php
- gnuboard-gnuboard5-c875121/theme/basic/tail.sub.php
- gnuboard-gnuboard5-c875121/theme/basic/theme.config.php
+tar -xf gnuboard.tar.gz -C . --strip-components=1
 ```
 
-위와 같은 형식으로 압축이 해제됩니다.
+위와 같이 현재 폴더에 압축을 풉니다.
 
-폴더명을 바꿔줘야 합니다.
-
-`gnuboard-gnuboard5-c875121` 이 부분을 gnuboard로 바꿀 것입니다.
-
-이 부분은 버전이 업그레이드 되면서 항상 바뀌므로 **수정** 후 명령어를 입력해주세요.
-
-    sudo mv gnuboard-gnuboard5-c875121 gnuboard
-    
-
-위 명령어로 폴더이름이 바뀌었습니다.
-
-    sudo rm master
-    
+```
+rm gnuboard.tar.gz
+```
 
 위 명령어로 압축파일을 삭제합니다.
 
