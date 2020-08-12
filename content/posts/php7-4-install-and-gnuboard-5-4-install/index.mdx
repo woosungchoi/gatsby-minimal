@@ -70,17 +70,14 @@ description: 구글 클라우드 플랫폼 무료티어에서 MariaDB, php7.4, n
 
 yourpassword 부분은 원하는 비번으로 **꼭** 수정하세요!
 
-    GRANT ALL ON gnuboard.* TO 'gnuuser'@'localhost' IDENTIFIED BY 'yourpassword' WITH GRANT OPTION;
+    GRANT ALL ON gnuboard.* TO 'gnuuser'@'localhost' WITH GRANT OPTION;
     
-
 위 명령어로 gnuuser가 gnuboard라는 DB의 모든 권한을 얻습니다.
 
-yourpassword 꼭 수정하세요!
-
     FLUSH PRIVILEGES;
+
     EXIT;
     
-
 위 두 명령어로 저장 후 나갑니다.
 
 ## 3. 그누보드 설치파일 다운받기
@@ -119,7 +116,7 @@ rm gnuboard.tar.gz
 
 이제 권한을 수정해야 합니다.
 
-    sudo chmod -R 755 gnuboard
+    sudo chmod -R 755 /var/www/gnuboard
     
 
 그누보드의 폴더 포함 모든 파일 및 폴더의 권한을 755로 줍니다.
@@ -134,7 +131,7 @@ data 폴더를 생성합니다.
 
 data 폴더의 권한을 707로 줍니다.
 
-    sudo chown -R www-data:www-data gnuboard
+    sudo chown -R www-data:www-data /var/www/gnuboard
     
 
 그누보드 폴더 이하의 모든 파일과 폴더의 소유권을 www-data에게 줍니다.

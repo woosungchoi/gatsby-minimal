@@ -316,7 +316,6 @@ test DB가 있는데 삭제하는게 좋습니다. Y 엔터
 
     sudo mysql -u root -p
     
-
 위 명령어를 넣고 아까 설정한 root 비번을 넣으면 MariaDB로 접속할 수 있습니다.
 
 > Enter password:
@@ -332,37 +331,7 @@ test DB가 있는데 삭제하는게 좋습니다. Y 엔터
 
 위와 같이 접속된 것을 알 수 있습니다. 
 
-접속에서 나오려면 exit를 넣고 엔터치면 됩니다.
-
----
-
-MariaDB에 기본 이모지 출력을 위한 설정을 미리 합니다.
-
-    sudo touch /etc/mysql/conf.d/mariadb.cnf
-    sudo nano /etc/mysql/conf.d/mariadb.cnf
-    
-
-위 두 명령어로 설정파일을 생성합니다.
-
-    [client]
-    default-character-set=utf8mb4
-    
-    [mysql]
-    default-character-set=utf8mb4
-    
-    [mysqld]
-    collation-server = utf8mb4_unicode_ci
-    character-set-server = utf8mb4
-    collation_server = utf8mb4_unicode_ci
-    character_set_server = utf8mb4
-    
-
-위 내용을 그대로 넣습니다. 컨트롤 + O, 엔터, 컨트롤 + X로 저장합니다.
-
-    sudo service mysql restart
-    
-
-위 명령어로 MariaDB를 재시작합니다.
+접속에서 나오려면 `exit;`를 넣고 엔터치면 됩니다.
 
 다음에는 Nodejs와 ghost 플랫폼 설치를 해보겠습니다.
 
