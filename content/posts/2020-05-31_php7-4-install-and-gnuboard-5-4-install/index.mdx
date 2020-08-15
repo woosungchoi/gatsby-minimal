@@ -51,6 +51,43 @@ description: 구글 클라우드 플랫폼 무료티어에서 MariaDB, php7.4, n
 
 ---
 
+    sudo nano /etc/php/7.4/fpm/php.ini
+    
+
+위 명령어로 들어가면 엄청나게 많은 글의 내용이 나오는데요.
+
+    short_open_tag = On
+    memory_limit = 256M
+    cgi.fix_pathinfo = 0
+    upload_max_filesize = 100M
+    post_max_size = 101M
+    max_execution_time = 360
+    date.timezone = Asia/Seoul
+    
+
+위 항목을 찾아서 다 바꿔줍니다.
+
+찾는 방법은 `컨트롤 + W` 누르면 밑에 검색창이 나오는데, 앞부분을 복사해서 붙여넣고 엔터를 치면 찾아집니다.
+
+예를들어 `short_open_tag`를 바꾸고 싶다면 `short_open_tag` 를 넣고 엔터를 치면 해당부분으로 갑니다.
+
+참고로 `short_open_tag`는 처음 검색하면 설명 부분이 나오는데 한번더 검색하면 제대로 나옵니다.
+
+`cgi.fix_pathinfo`는 아마도 `;cgi.fix_pathinfo = 1` 이렇게 되어있을텐데요. 앞에 `;` 은 주석으로 처리한다는 뜻이므로 이것도 빼야겠죠.
+
+즉 `;cgi.fix_pathinfo = 1` 을 `cgi.fix_pathinfo = 0`  이렇게 바꿔줘야 하는 것입니다.
+
+그 뒤에 수정하면 됩니다. 전부 찾아서 다 바꾼 후
+
+`컨트롤 + O`, `엔터`, `컨트롤 + X`를 누르면 저장 후 빠져나와집니다.
+
+    sudo systemctl reload php7.4-fpm
+    
+
+위 명령어로 설정을 적용해줍니다.
+
+---
+
 ## 2. MariaDB에 그누보드 전용 DB 및 유저 생성하기
 
     sudo mysql -u root -p

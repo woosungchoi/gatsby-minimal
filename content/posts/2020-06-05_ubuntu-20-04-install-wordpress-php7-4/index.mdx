@@ -59,6 +59,18 @@ letsencrypt 와일드카드 인증서 발급 및 MariaDB 설치하기
 
 위 명령어로 워드프레스에 필요한 패키지를 설치합니다.
 
+
+    sudo systemctl enable php7.4-fpm
+    
+
+위 명령어로 재부팅시에 자동 시작되게 합니다.
+
+    sudo systemctl start php7.4-fpm
+
+위 명령어로 실행합니다.
+
+---
+
     sudo nano /etc/php/7.4/fpm/php.ini
     
 
