@@ -13,11 +13,11 @@ module.exports = {
     // JSONLD에서 사용되는 내용
     siteHeadline: `Woosung blog`,
     // og:image의 절대경로설정 관련에 쓰입니다. 홈페이지의 정확한 URL을 입력하세요.
-    siteUrl: `https://blog.wsgvet.com`,
+    siteUrl: `https://gatsby-minimal.vercel.app/`,
     // SEO에 들어가는 사이트 설정입니다.
     siteDescription: `Gatsby js로 만든 우성짱의 미니멀 블로그입니다. 정적사이트 생성기 Gatsby로 꾸미고 있습니다.`,
     // 사이트 언어를 설정합니다.
-    siteLanguage: `KR`,
+    siteLanguage: `ko`,
     // og:image에 쓰이며, 반드시 `static` 폴더에 있어야 합니다. 사이트 대표이미지라고 보시면 됩니다.
     siteImage: `/profile.png`,
     // 트위터 계정을 넣으면 됩니다. 없어도 될 것 같네요.
@@ -44,12 +44,6 @@ module.exports = {
         ],
         formatString: `YYYY-MM-DD HH:mm:ss`,
         feedTitle: `Woosung blog`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: "UA-42656743-2",
       },
     },
     `gatsby-plugin-sitemap`,
