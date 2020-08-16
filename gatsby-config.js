@@ -75,9 +75,6 @@ module.exports = {
             type: `image/png`,
           },
         ],
-        icon_options: {
-          purpose: `maskable`,
-        },
       },
     },
     `gatsby-plugin-offline`,
