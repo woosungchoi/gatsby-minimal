@@ -169,6 +169,40 @@ description: 구글 클라우드 컴퓨트 엔진에 우분투 설치 후 기본
 
 ## 4. 시간 설정하기
 
+우분투 20.04에서는 하나의 명령어로 서울 시간으로 바꿀 수 있습니다.
+
+```
+sudo timedatectl set-timezone Asia/Seoul
+```
+
+이제 현재 우분투 서버의 시간이 서울로 바뀌었습니다.
+
+잘 바뀌었는지 확인하려면
+
+```
+timedatectl
+```
+
+위 명령어만 내리면 바로 확인 가능합니다.
+
+
+```
+# timedatectl
+               Local time: Fri 2020-08-21 11:29:33 KST
+           Universal time: Fri 2020-08-21 02:29:33 UTC
+                 RTC time: Fri 2020-08-21 02:29:34
+                Time zone: Asia/Seoul (KST, +0900)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+```
+
+위와 같이 KST와 서울로 표시되는 것을 확인할 수 있습니다.
+
+---
+
+혹시 우분투 구버전을 써서 `timedatectl` 명령어를 쓸 수 없다면 `tzdata`를 쓸 수 있습니다.
+
     sudo dpkg-reconfigure tzdata
     
 
